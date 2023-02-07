@@ -26,7 +26,8 @@ function getCityDetails(){
 }
 
 function getFiveDayForecast(longitude, latitude){
-    var queryURL = "api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
+    //Gets query Url made for 5 day forecast and logs result for now
+    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
     $.ajax({
         url: queryURL,
         method: "GET"       
@@ -34,3 +35,13 @@ function getFiveDayForecast(longitude, latitude){
         console.log(response);
     })
 }
+
+/*
+TODO
+Generate current weather, using another API request like in the example from class
+Generate the current weather in the top section of the screen
+Generate the 5 day weather report by picking a time and generating the buttons as cards
+Add when a city is searched for a button that is generated with this value being stored in local storage
+Make the buttons clickable so that they can then direct you to the weathers link
+
+*/
