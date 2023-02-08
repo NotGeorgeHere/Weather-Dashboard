@@ -26,6 +26,7 @@ $('#search-button').on('click', function(event){
         //Runs functions needed
         getCityDetails();
         getCurrentWeather();
+        saveSearches();
     }
 })
 
@@ -145,3 +146,15 @@ function getCurrentWeather(){
     })
 }
 
+//Saves the searches made by the user and stores in local storage
+function saveSearches(){
+    //Gets the search query
+    var searchQuery = $('#search-input').val();
+    var searches = JSON.parse(window.localStorage.getItem('searches')) || [];
+
+    var newSearch = {
+        "Search": searchQuery
+    }
+    searches.push(newSearch);
+    window.localStorage.setItem('searches', JSON.stringify(searches));
+}
