@@ -12,6 +12,8 @@ Make the buttons clickable so that they can then direct you to the weathers link
 //Sets the APIKey as a global variable as it will be accessed throughout the project, set as CONST so it can't accidentally be changed
 const APIKey = "e4182968795963e8549c174bdbd48448";
 
+//Renders the search list
+renderSearches()
 
 //Runs when search button is clicked
 //Main feature that will happen when everything is run, will contain functions written for it
@@ -157,4 +159,18 @@ function saveSearches(){
     }
     searches.push(newSearch);
     window.localStorage.setItem('searches', JSON.stringify(searches));
+}
+
+function renderSearches(){
+    var newSearch = JSON.parse(window.localStorage.getItem("searches"));
+
+    if (newSearch !== null){
+        for (var i = 0; i < newSearch.length; i++){
+            var button = $("<button>");
+            button.attr("class", "searchButton");
+            var buttonText = JSON.stringify(newSearch[i].Search);
+            button.text(buttonText)
+            $("#history").append(button);
+        }
+    }
 }
