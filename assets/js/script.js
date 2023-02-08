@@ -25,10 +25,12 @@ $('#search-button').on('click', function(event){
         //Removes the current elements appended
         $('#today').children().remove();
         $('#forecast').children().remove();
+        $("#history").children().remove();
         //Runs functions needed
         getCityDetails();
         getCurrentWeather();
         saveSearches();
+        renderSearches();
     }
 })
 
@@ -55,7 +57,6 @@ function getFiveDayForecast(longitude, latitude){
         url: queryURL,
         method: "GET"       
     }).then(function(response){
-        console.log(response);
         //Loops through the whole 5 day forecast
         for (var i = 0; i < response.list.length; i++){
             //I've chosen 3pm as my designated daily forecast time so I look through the whole array to find each array element that includes 3pm
@@ -111,9 +112,6 @@ function getCurrentWeather(){
         url: queryURL,
         methood: "GET"
     }).then(function(response){
-        //REMOVE THIS CONSOLE LOG WHEN COMPLETE
-        console.log(response);
-
         //Creates header for current weather and sets it as the location and date
         var currentDate = moment().format("DD/MM/YYYY");
         var cityName = $('<h2>');
@@ -152,25 +150,39 @@ function getCurrentWeather(){
 function saveSearches(){
     //Gets the search query
     var searchQuery = $('#search-input').val();
+    //Either gets the search array or creates one
     var searches = JSON.parse(window.localStorage.getItem('searches')) || [];
-
+    //Creates an object to be stored in the array
     var newSearch = {
         "Search": searchQuery
     }
+    //Pushes it and sets this in local storage
     searches.push(newSearch);
     window.localStorage.setItem('searches', JSON.stringify(searches));
 }
 
-function renderSearches(){
-    var newSearch = JSON.parse(window.localStorage.getItem("searches"));
 
-    if (newSearch !== null){
-        for (var i = 0; i < newSearch.length; i++){
+//Renders the search
+function renderSearches(){
+    var newSearchButton = JSON.parse(window.localStorage.getItem("searches"));
+
+    //If the array isn't empty search through the array and append a button with the search text onto the history Div
+    if (newSearchButton !== null){
+        for (var i = 0; i < newSearchButton.length; i++){
             var button = $("<button>");
             button.attr("class", "searchButton");
-            var buttonText = JSON.stringify(newSearch[i].Search);
-            button.text(buttonText)
+            var buttonText = newSearchButton[i].Search;
+            button.text(buttonText);
             $("#history").append(button);
         }
     }
+    //Once the buttons are created they can have a click event run on it, this will then put it into the search value input field and run the city details and current weather functions
+    $("#history").children().on("click", function(event){
+        var currentSearch = event.currentTarget.innerHTML;
+        $("#search-input").val(currentSearch);
+        $('#today').children().remove();
+        $('#forecast').children().remove();
+        getCityDetails();
+        getCurrentWeather();
+    })
 }
