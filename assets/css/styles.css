@@ -1,3 +1,15 @@
 .search-button{
     margin-left: 10px;
 }
+
+.currentWeatherStyling{
+    border: 2px solid black;
+}
+
+.futureForecastStyling{
+    background-color: rgb(93, 93, 228);
+}
+
+.row{
+    justify-content: center !important;
+}

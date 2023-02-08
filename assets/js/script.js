@@ -44,6 +44,7 @@ function getCityDetails(){
     })
 }
 
+
 function getFiveDayForecast(longitude, latitude){
     //Gets query Url made for 5 day forecast and logs result for now
     var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
@@ -52,8 +53,52 @@ function getFiveDayForecast(longitude, latitude){
         method: "GET"       
     }).then(function(response){
         console.log(response);
+        //Loops through the whole 5 day forecast
+        for (var i = 0; i < response.list.length; i++){
+            //I've chosen 3pm as my designated daily forecast time so I look through the whole array to find each array element that includes 3pm
+            if (response.list[i].dt_txt.includes("15:00:00")){
+                //Generates a bootstrap card that is appended to the forecast section
+                var card = $("<div>").attr("class", "card");
+                card.attr("style", "width: 200px;");
+                var cardBody = $("<div>").attr("class", "card-body futureForecastStyling");
+                card.append(cardBody);
+                $("#forecast").append(card);
+                
+                //Generates a header using jquery to get the date for the future forecast
+                var cardHead = $("<h5>");
+                cardHead.attr("class futureForecast futureHeader");
+                //Uses a substring function to only return the date of dt_txt
+                cardHead.text(response.list[i].dt_txt.substr(0,10))
+
+                //Generates an icon for the future forecast
+                var icon = response.list[i].weather[0].icon;
+                var iconUrl = "http://openweathermap.org/img/wn/" + icon + ".png";
+                var currentIcon = $("<img>").attr("src", iconUrl);
+                currentIcon.attr("class", "futureForecast icon")
+
+                //Generates the temperature
+                //Converts from kelvin to celcius
+                var temp = response.list[i].main.temp - 273.15;
+                var tempDisplay = $("<p>").attr("class", "futureForecast temperature");
+                tempDisplay.text("Temp: " + temp.toFixed(2));
+
+                //Generates the Wind speed
+                var windDisplay = $("<p>");
+                windDisplay.attr("class", "futureForecast wind");
+                windDisplay.text("Wind: " + response.list[i].wind.speed + "m/s");
+
+                //Generates the humidity
+                var humidityDisplay = $("<p>");
+                humidityDisplay.attr("class", "futureForecast humidity");
+                humidityDisplay.text("Humidity: " + response.list[i].main.humidity + "%");
+
+                cardBody.append(cardHead, currentIcon, tempDisplay, windDisplay, humidityDisplay);
+            }
+        }
     })
 }
+
+
 
 //Function that uses a different API call to get the current weather
 function getCurrentWeather(){
@@ -63,6 +108,7 @@ function getCurrentWeather(){
         url: queryURL,
         methood: "GET"
     }).then(function(response){
+        //REMOVE THIS CONSOLE LOG WHEN COMPLETE
         console.log(response);
 
         //Creates header for current weather and sets it as the location and date
@@ -79,20 +125,23 @@ function getCurrentWeather(){
 
         //Creates text for current weather and will display temperature, wind and humidity 
         //Converts the Kelvin into Celcius
-        var temp = response.main.temp - 273.15
+        var temp = response.main.temp - 273.15;
         var tempDisplay = $('<p>');
         tempDisplay.attr("class", "currentForcastText temperature");
         tempDisplay.text("Temp: " + temp.toFixed(2));
         
+        //Creates wind elements
         var windDisplay = $('<p>');
         windDisplay.attr("class", "currentForcastText wind");
         windDisplay.text("Wind: " + response.wind.speed + " m/s");
 
+        //Creates humidity elements
         var humidityDisplay = $('<p>');
         humidityDisplay.attr("class", "currentForcastText humidity");
         humidityDisplay.text("Humidity: " + response.main.humidity + "%");
 
         $('#today').append(cityName, tempDisplay, windDisplay, humidityDisplay);
+        $('#today').attr("class", "currentWeatherStyling")
     })
 }
 
