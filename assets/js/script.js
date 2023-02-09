@@ -26,7 +26,7 @@ $('#search-button').on('click', function(event){
 function getCityDetails(){
     //Creates the queryURL to be searched for
     var cityName = $('#search-input').val();
-    var queryUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + APIKey;
+    var queryUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&appid=" + APIKey;
     //Runs the search on the API using the queryURL and then once thats been recieved will put that into an object response
     $.ajax({
         url: queryUrl,
@@ -41,7 +41,7 @@ function getCityDetails(){
 
 function getFiveDayForecast(longitude, latitude){
     //Gets query Url made for 5 day forecast and logs result for now
-    var queryURL = "http://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
+    var queryURL = "https://api.openweathermap.org/data/2.5/forecast?lat=" + latitude + "&lon=" + longitude + "&appid=" + APIKey;
     $.ajax({
         url: queryURL,
         method: "GET"       
@@ -66,7 +66,7 @@ function getFiveDayForecast(longitude, latitude){
 
                 //Generates an icon for the future forecast
                 var icon = response.list[i].weather[0].icon;
-                var iconUrl = "http://openweathermap.org/img/wn/" + icon + ".png";
+                var iconUrl = "https://openweathermap.org/img/wn/" + icon + ".png";
                 var currentIcon = $("<img>").attr("src", iconUrl);
                 currentIcon.attr("class", "futureForecast icon")
 
@@ -110,7 +110,7 @@ function getCurrentWeather(){
 
         //Gets the icon and appends it to the cityName
         var icon = response.weather[0].icon;
-        var iconUrl = "http://openweathermap.org/img/wn/" + icon + ".png"
+        var iconUrl = "https://openweathermap.org/img/wn/" + icon + ".png"
         var currentIcon = $("<img>").attr("src", iconUrl)
         cityName.append(currentIcon);
 

@@ -1,5 +1,18 @@
-# Weather-Dashboard
+# George Ryder - Weather-Dashboard
+
+## Description
+
 An app that allows users to see the weather forecast for cities of their choosing
+
+## Installation
+
+Github repository: https://github.com/NotGeorgeHere/Weather-Dashboard
+
+Live Deployment Page: https://notgeorgehere.github.io/Weather-Dashboard
+
+## Usage
+
+![weatherDashboardImplementation](assets/images/weatherScreenshot.png)
 
 Could improve it with some functions to reduce the repitiveness of code maybe for the future
 
