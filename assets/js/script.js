@@ -1,14 +1,3 @@
-/*
-TODO
-
-Generate the current weather in the top section of the screen
-
-Generate the 5 day weather report by picking a time and generating the buttons as cards
-Add when a city is searched for a button that is generated with this value being stored in local storage
-Make the buttons clickable so that they can then direct you to the weathers link
-
-*/
-
 //Sets the APIKey as a global variable as it will be accessed throughout the project, set as CONST so it can't accidentally be changed
 const APIKey = "e4182968795963e8549c174bdbd48448";
 
@@ -64,9 +53,10 @@ function getFiveDayForecast(longitude, latitude){
                 //Generates a bootstrap card that is appended to the forecast section
                 var card = $("<div>").attr("class", "card");
                 card.attr("style", "width: 200px;");
-                var cardBody = $("<div>").attr("class", "card-body futureForecastStyling");
+                var cardBody = $("<div>").attr("class", "card-body text-center futureForecastStyling");
                 card.append(cardBody);
                 $("#forecast").append(card);
+                
                 
                 //Generates a header using jquery to get the date for the future forecast
                 var cardHead = $("<h5>");
@@ -98,7 +88,7 @@ function getFiveDayForecast(longitude, latitude){
 
                 cardBody.append(cardHead, currentIcon, tempDisplay, windDisplay, humidityDisplay);
             }
-        }
+        } $('#fiveDay').removeAttr("class");
     })
 }
 

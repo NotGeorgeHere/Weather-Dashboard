@@ -1,15 +1,58 @@
-.search-button{
-    margin-left: 10px;
+.searchButton{
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: rgb(214, 214, 214);
+    font-weight: bold;
+}
+
+.form-group{
+    justify-content: center !important;
 }
 
 .currentWeatherStyling{
     border: 2px solid black;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 0 10px 10px;
+}
+
+.currentForcastHeader{
+    text-align: center;
+    font-weight: bolder;
+    background-color: rgb(196, 196, 196);
+}
+
+.currentForcastText{
+    font-weight: bold;
+    margin-left: 20px;
 }
 
 .futureForecastStyling{
     background-color: rgb(93, 93, 228);
 }
 
+.futureForecast{
+    font-weight: bold;
+}
+
+.card{
+    margin: 10px !important;
+    border: 2px solid black !important;
+}
+
 .row{
     justify-content: center !important;
+}
+
+#fiveDay{
+    font-size: 30px;
+    font-weight: bolder;
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: -5px;
+}
+.hidden{
+    display: none;
 }
